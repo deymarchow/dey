@@ -1,0 +1,40 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+
+D_israel=pd.read_csv('results_by_booth_2013 - english - v2.csv',header=0)
+Names=pd.DataFrame(D_israel)
+
+Names.drop(['Registered_voters','settlement_code','booth_number','bad_votes','Ale Yarok','Am Shalem','Balad','Brit_Olam','Daam Workers Party','Eretz Hadasha','Green Party','Hadash','Or','Otzma LeYisrael','Pirate Party','Raam-Taal','Senior Citizens Party','Shas','Social Justice','United Torah Judaism','Were Brothers','Yesh Atid','Haim Bekavod','Hatnua','Hope for Change','HaYisraelim','Kadima','Kalkala','Koah LeHashpia','The Jewish Home','Labour Party','Leader','Likud Beitenu','Meretz','Moreshet Avot','Na Nach'],axis = 1, inplace=True)
+print Names.head()# para mostrar solo los primeros datos de cadad columna
+
+# PRUEBAS FALLIDAS
+"""
+X_train= df['Registered_voters'].values[:,np.newaxis]
+Y_train= df['votes'].values
+lm = LinearRegression()
+lm.fit(X_train,Y_train)
+"""
+"""
+colum1=(df.Registered_voters)
+colum2=(df.votes)
+"""
+X=Names['votes'].values[:,np.newaxis]
+Y=Names['proper_votes'].values
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.33, random_state = 5)
+
+lm=LinearRegression()
+
+lm.fit(X_train,Y_train)
+Prediccion = lm.predict(X_test)
+
+plt.scatter(Y_test, Prediccion, color='y')
+plt.plot(X_test,Prediccion, color='black',linewidth=1)
+plt.xlabel("registro de votos apropiados")
+plt.ylabel("registro de votos realizados")
+plt.title("total de votos hechos vs total de votos apropiados")
+plt.show()
