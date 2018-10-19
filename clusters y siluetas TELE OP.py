@@ -109,12 +109,3 @@ for n_clusters in range_n_clusters:
     plt.suptitle(("siluetas "
                   "N de cluster = %d" % n_clusters))
     plt.show()
-
-"""                 
-#plt.scatter(X,Y)
-plt.scatter(X,Y, c=[cm.Paired(c)for c in TELE_OP.tenure])
-
-plt.xlabel('NAME 0')
-plt.ylabel('NAME 1')
-plt.show()
-"""
